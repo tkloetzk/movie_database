@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./SearchCriteria.css";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
-import { connect } from "react";
+import { connect } from "react-redux";
 import { genresActions } from "../../actions/searchCriteriaActions/genresActions";
 
 class SearchCriteria extends Component {
@@ -55,4 +55,5 @@ class SearchCriteria extends Component {
 const mapStateToProps = ({ genres }) => ({
   genres
 });
+
 export default connect(mapStateToProps)(SearchCriteria);
