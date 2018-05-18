@@ -1,4 +1,4 @@
-import * as types from "../../constants/actionTypes";
+import * as types from "./genres-action-types";
 
 export const updateGenreAction = genres => {
   return {
