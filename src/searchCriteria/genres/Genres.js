@@ -1,39 +1,33 @@
-import React, { Component } from "react";
-import Select from "react-select";
-import { bindActionCreators } from "redux";
-import "react-select/dist/react-select.css";
-import { connect } from "react-redux";
-import * as genresActions from "./genres-actions";
-import _ from "lodash";
+import React, { Component } from 'react';
+import Select from 'react-select';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import 'react-select/dist/react-select.css';
+import { connect } from 'react-redux';
+import * as genresActions from './genres-actions';
 
 class Genres extends Component {
-  selectedOption = "";
   handleChange = genres => {
-    this.selectedOption = genres;
-
-    genres = _.map(genres, function(el) {
-      return el.value;
-    });
     this.props.updateGenreAction(genres);
   };
 
   render() {
     const genresDropDown = [
-      { value: "Action, Adventure", label: "Action/Adventure" },
-      { value: "Comedy", label: "Comedy" },
-      { value: "Crime", label: "Crime" },
-      { value: "Drama", label: "Drama" },
-      { value: "Family", label: "Family" },
-      { value: "Fantasy", label: "Fantasy" },
-      { value: "Film Noir", label: "Film Noir" },
-      { value: "Horror", label: "Horror" },
-      { value: "Musical", label: "Musical" },
-      { value: "Mystery", label: "Mystery" },
-      { value: "Romance", label: "Romance" },
-      { value: "Sci-Fi", label: "Sci-Fi" },
-      { value: "Thriller", label: "Thriller" },
-      { value: "War", label: "War" },
-      { value: "Western", label: "Western" }
+      { value: 'Action, Adventure', label: 'Action/Adventure' },
+      { value: 'Comedy', label: 'Comedy' },
+      { value: 'Crime', label: 'Crime' },
+      { value: 'Drama', label: 'Drama' },
+      { value: 'Family', label: 'Family' },
+      { value: 'Fantasy', label: 'Fantasy' },
+      { value: 'Film Noir', label: 'Film Noir' },
+      { value: 'Horror', label: 'Horror' },
+      { value: 'Musical', label: 'Musical' },
+      { value: 'Mystery', label: 'Mystery' },
+      { value: 'Romance', label: 'Romance' },
+      { value: 'Sci-Fi', label: 'Sci-Fi' },
+      { value: 'Thriller', label: 'Thriller' },
+      { value: 'War', label: 'War' },
+      { value: 'Western', label: 'Western' }
     ];
     return (
       <div className="col my-auto">
@@ -42,7 +36,7 @@ class Genres extends Component {
           closeOnSelect={false}
           multi
           name="form-field-name"
-          value={this.selectedOption}
+          value={this.props.genres}
           onChange={this.handleChange}
           placeholder="Select a Genre"
           options={genresDropDown}
@@ -51,14 +45,17 @@ class Genres extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    genres: state.genres
-  };
-};
+const mapStateToProps = state => ({
+  genres: state.genres
+});
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(genresActions, dispatch);
-};
+const mapDispatchToProps = dispatch => bindActionCreators(genresActions, dispatch);
 
+Genres.defaultProps = {
+  genres: []
+};
+Genres.propTypes = {
+  updateGenreAction: PropTypes.func.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.object)
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Genres);
