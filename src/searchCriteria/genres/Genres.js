@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import "./SearchCriteria.css";
 import Select from "react-select";
+import { bindActionCreators } from "redux";
 import "react-select/dist/react-select.css";
 import { connect } from "react-redux";
-import * as genresActions from "../../actions/searchCriteriaActions/genresActions";
+import * as genresActions from "./genres-actions";
 import _ from "lodash";
 
-class SearchCriteria extends Component {
+class Genres extends Component {
   selectedOption = "";
   handleChange = genres => {
     this.selectedOption = genres;
@@ -17,6 +16,7 @@ class SearchCriteria extends Component {
     });
     this.props.updateGenreAction(genres);
   };
+
   render() {
     const genresDropDown = [
       { value: "Action, Adventure", label: "Action/Adventure" },
@@ -36,24 +36,21 @@ class SearchCriteria extends Component {
       { value: "Western", label: "Western" }
     ];
     return (
-      <div className="row rounded" id="searchCriteria">
-        <div className="col my-auto">
-          <Select
-            className="w-25 align-middle"
-            closeOnSelect={false}
-            multi
-            name="form-field-name"
-            value={this.selectedOption}
-            onChange={this.handleChange}
-            placeholder="Select a Genre"
-            options={genresDropDown}
-          />
-        </div>
+      <div className="col my-auto">
+        <Select
+          className="w-25 align-middle"
+          closeOnSelect={false}
+          multi
+          name="form-field-name"
+          value={this.selectedOption}
+          onChange={this.handleChange}
+          placeholder="Select a Genre"
+          options={genresDropDown}
+        />
       </div>
     );
   }
 }
-
 const mapStateToProps = state => {
   return {
     genres: state.genres
@@ -64,4 +61,4 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(genresActions, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchCriteria);
+export default connect(mapStateToProps, mapDispatchToProps)(Genres);
