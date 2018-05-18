@@ -1,4 +1,4 @@
-import * as types from "./genres-action-types";
+import * as types from './genres-action-types';
 
 export default function(state = [], action) {
   switch (action.type) {
