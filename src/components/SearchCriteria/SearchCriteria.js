@@ -1,21 +1,24 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
 import "./SearchCriteria.css";
 import Select from "react-select";
 import "react-select/dist/react-select.css";
 import { connect } from "react-redux";
-import { genresActions } from "../../actions/searchCriteriaActions/genresActions";
+import * as genresActions from "../../actions/searchCriteriaActions/genresActions";
+import _ from "lodash";
 
 class SearchCriteria extends Component {
-  state = {
-    selectedOption: "",
-    value: []
-  };
-  handleChange = selectedOption => {
-    this.setState({ selectedOption });
+  selectedOption = "";
+  handleChange = genres => {
+    this.selectedOption = genres;
+
+    genres = _.map(genres, function(el) {
+      return el.value;
+    });
+    this.props.updateGenreAction(genres);
   };
   render() {
-    const { selectedOption, value } = this.state;
-    const genres = [
+    const genresDropDown = [
       { value: "Action, Adventure", label: "Action/Adventure" },
       { value: "Comedy", label: "Comedy" },
       { value: "Crime", label: "Crime" },
@@ -35,16 +38,15 @@ class SearchCriteria extends Component {
     return (
       <div className="row rounded" id="searchCriteria">
         <div className="col my-auto">
-          {this.props.genres}
           <Select
             className="w-25 align-middle"
             closeOnSelect={false}
             multi
             name="form-field-name"
-            value={selectedOption}
+            value={this.selectedOption}
             onChange={this.handleChange}
             placeholder="Select a Genre"
-            options={genres}
+            options={genresDropDown}
           />
         </div>
       </div>
@@ -52,8 +54,14 @@ class SearchCriteria extends Component {
   }
 }
 
-const mapStateToProps = ({ genres }) => ({
-  genres
-});
+const mapStateToProps = state => {
+  return {
+    genres: state.genres
+  };
+};
 
-export default connect(mapStateToProps)(SearchCriteria);
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(genresActions, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchCriteria);
