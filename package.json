@@ -25,7 +25,7 @@
     "lint": "eslint '**/*.{js,jsx,json}' --quiet"
   },
   "lint-staged": {
-    "*.{js,json,css,md}": ["prettier --write", "eslint *.js *.json --fix", "git add"]
+    "*.{js,json,css,md}": ["prettier --write", "eslint *.js --fix", "git add"]
   },
   "devDependencies": {
     "eslint": "^4.19.1",
