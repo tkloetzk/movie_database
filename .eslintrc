@@ -9,7 +9,8 @@
     "env": {
         "es6": true,
         "browser": true,
-        "node": true
+        "node": true,
+        "jquery": true
     },
     "parser": "babel-eslint",
     "extends": ["airbnb", "prettier"],
