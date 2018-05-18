@@ -22,7 +22,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
-    "lint": "eslint '**/*.{js,jsx}' --quiet"
+    "lint": "eslint '**/*.{js,jsx,json}' --quiet"
   },
   "lint-staged": {
     "*.{js,json,css,md}": ["prettier --write", "eslint *.js *.json --fix", "git add"]
