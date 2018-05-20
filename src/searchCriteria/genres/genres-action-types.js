@@ -1,1 +1,2 @@
-export const UPDATE_GENRES = "UPDATE_GENRES";
+const UPDATE_GENRES = 'UPDATE_GENRES';
+export default UPDATE_GENRES;

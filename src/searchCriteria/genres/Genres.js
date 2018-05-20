@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import 'react-select/dist/react-select.css';
 import { connect } from 'react-redux';
-import * as genresActions from './genres-actions';
+import * as genreActions from './genres-actions';
 
 class Genres extends Component {
   handleChange = genres => {
@@ -49,7 +49,7 @@ const mapStateToProps = state => ({
   genres: state.genres
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(genresActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(genreActions, dispatch);
 
 Genres.defaultProps = {
   genres: []

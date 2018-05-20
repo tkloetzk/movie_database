@@ -1,8 +1,6 @@
-import * as types from "./genres-action-types";
+import UPDATE_GENRES from './genres-action-types';
 
-export const updateGenreAction = genres => {
-  return {
-    type: types.UPDATE_GENRES,
-    genres: genres
-  };
-};
+export const updateGenreAction = genres => ({
+  type: UPDATE_GENRES,
+  genres
+});
