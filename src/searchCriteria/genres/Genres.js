@@ -30,9 +30,9 @@ class Genres extends Component {
       { value: 'Western', label: 'Western' }
     ];
     return (
-      <div className="col my-auto">
+      <div className="col-sm-4">
         <Select
-          className="w-25 align-middle"
+          className="align-middle"
           closeOnSelect={false}
           multi
           name="form-field-name"
