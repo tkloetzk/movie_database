@@ -1,21 +1,18 @@
 import React from 'react';
-import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Button, ButtonToolbar, Glyphicon } from 'react-bootstrap';
 
 const Buttons = () => (
   <ButtonToolbar className="col-sm-3">
-    {/* Standard button */}
-    <Button bsSize="small" className="outline btn-custom-main">
-      Default
+    <Button bsSize="small" className="btn-custom-main btn-65px">
+      <Glyphicon glyph="bookmark" />
     </Button>
 
-    {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-    <Button bsSize="small" className="outline btn-custom-main">
-      SEARCH
+    <Button bsSize="small" className="btn-custom-main btn-110px">
+      <Glyphicon glyph="search" />
     </Button>
 
-    {/* Indicates a successful or positive action */}
-    <Button bsSize="small" className="outline btn-custom-main">
-      SAVE
+    <Button bsSize="small" className="btn-custom-main btn-65px">
+      <Glyphicon glyph="save" />
     </Button>
   </ButtonToolbar>
 );
