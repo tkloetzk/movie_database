@@ -30,7 +30,7 @@ class Genres extends Component {
       { value: 'Western', label: 'Western' }
     ];
     return (
-      <div className="col-sm-4">
+      <div className="col-sm-5">
         <Select
           className="align-middle"
           closeOnSelect={false}
