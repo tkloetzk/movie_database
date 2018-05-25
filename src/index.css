@@ -12,23 +12,18 @@ html {
 
 /* Button Styling */
 
-.btn.outline {
-  background: none;
-  padding: 5px 12px;
+.btn-custom-main {
+  background-color: cornflowerblue;
+  color: white;
 }
 
-.btn-custom-main.outline {
-  border: 2px solid black;
-  color: black;
-}
-
-.btn-custom-main.outline:hover,
-.btn-custom-main.outline:focus,
-.btn-custom-main.outline:active,
-.btn-custom-main.outline.active,
+.btn-custom-main:hover,
+.btn-custom-main:focus,
+.btn-custom-main:active,
+.btn-custom-main.active,
 .open>.dropdown-toggle.btn-custom-main {
-  color: black;
-  border-color: grey;
+  color: white;
+  background-color: #a9c6fc;
 }
 
 .btn-custom-main.disabled,
@@ -47,7 +42,14 @@ fieldset[disabled] .btn-custom-main:active,
 .btn-custom-main[disabled].active,
 fieldset[disabled] .btn-custom-main.active {
   background-color: lightgray;
-  border-color: gray;
   color: black;
   border-radius: 0;
+}
+
+.btn-65px {
+  width: 65px;
+}
+
+.btn-110px {
+  width: 110px;
 }
