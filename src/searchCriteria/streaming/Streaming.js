@@ -28,7 +28,7 @@ class Streaming extends Component {
 
   render() {
     return (
-      <div className="form-check form-check-inline border border-gray rounded">
+      <div className="col-sm-4 border border-gray rounded text-center">
         {this.createServicesCheckboxes()}
       </div>
     );
