@@ -5,3 +5,51 @@ body {
   background-color: #e4e4e4;
   padding-top: 14px;
 }
+
+html {
+  font-size: 16px;
+}
+
+/* Button Styling */
+
+.btn-custom-main {
+  background-color: cornflowerblue;
+  color: white;
+}
+
+.btn-custom-main:hover,
+.btn-custom-main:focus,
+.btn-custom-main:active,
+.btn-custom-main.active,
+.open>.dropdown-toggle.btn-custom-main {
+  color: white;
+  background-color: #a9c6fc;
+}
+
+.btn-custom-main.disabled,
+.btn-custom-main[disabled],
+fieldset[disabled] .btn-custom-main,
+.btn-custom-main.disabled:hover,
+.btn-custom-main[disabled]:hover,
+fieldset[disabled] .btn-custom-main:hover,
+.btn-custom-main.disabled:focus,
+.btn-custom-main[disabled]:focus,
+fieldset[disabled] .btn-custom-main:focus,
+.btn-custom-main.disabled:active,
+.btn-custom-main[disabled]:active,
+fieldset[disabled] .btn-custom-main:active,
+.btn-custom-main.disabled.active,
+.btn-custom-main[disabled].active,
+fieldset[disabled] .btn-custom-main.active {
+  background-color: lightgray;
+  color: black;
+  border-radius: 0;
+}
+
+.btn-65px {
+  width: 65px;
+}
+
+.btn-110px {
+  width: 110px;
+}
