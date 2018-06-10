@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ButtonToolbar, Glyphicon } from 'react-bootstrap';
 
 const Buttons = () => (
-  <ButtonToolbar className="col-sm-3">
+  <ButtonToolbar className="col-sm-3 align-self-center minHeight34">
     <Button bsSize="small" className="btn-custom-main btn-65px">
       <Glyphicon glyph="bookmark" />
     </Button>

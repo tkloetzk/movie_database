@@ -28,7 +28,7 @@ class Streaming extends Component {
 
   render() {
     return (
-      <div className="col-sm-4 border border-gray rounded text-center">
+      <div className="col-sm-4 border border-gray rounded text-center align-self-center minHeight34">
         {this.createServicesCheckboxes()}
       </div>
     );
