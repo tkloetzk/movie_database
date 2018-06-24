@@ -1,19 +1,22 @@
 import React from 'react';
-import { Button, ButtonToolbar, Glyphicon } from 'react-bootstrap';
+import { Button, Glyphicon } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-const Buttons = () => (
-  <ButtonToolbar className="col-sm-3 align-self-center minHeight34">
-    <Button bsSize="small" className="btn-custom-main btn-65px">
-      <Glyphicon glyph="bookmark" />
-    </Button>
-
-    <Button bsSize="small" className="btn-custom-main btn-110px">
-      <Glyphicon glyph="search" />
-    </Button>
-
-    <Button bsSize="small" className="btn-custom-main btn-65px">
-      <Glyphicon glyph="save" />
-    </Button>
-  </ButtonToolbar>
+const Buttons = props => (
+  <Button
+    bsSize="small"
+    className={`btn-custom-main ${props.btnSize} `}
+    key={props.glyph}
+    onClick={props.onClick}
+  >
+    <Glyphicon glyph={props.glyph} />
+  </Button>
 );
+
+Buttons.propTypes = {
+  btnSize: PropTypes.string.isRequired,
+  glyph: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
+};
+
 export default Buttons;

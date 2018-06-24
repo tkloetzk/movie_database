@@ -1,0 +1,34 @@
+STATES
+Search Criteria state= genres, services, 
+Results list
+Interested List
+Edited List
+
+
+Search Criteria
+---
+Genre
+	UI, Save to state
+Services
+	UI, Save to state
+Search button
+	UI, Makes API call to Netflix, Returns Response from Neflix
+	Makes API call to Hulu, Returns Response from Hulu
+	Makes API call to Prime, Returns Response from Prime
+	Makes API call to database, Returns Response
+Save button
+	UI
+Rating
+	UI, Save to state
+MPAA
+	UI, Save to state
+Cast, Crew
+	UI, Save to state
+
+
+Movie List
+---
+
+
+Interested List
+----
