@@ -2,22 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { remove } from 'lodash';
 import * as streamingActions from './streaming-services-actions';
 
 import Checkbox from '../../util/Checkbox';
 
 class Streaming extends Component {
   componentWillMount = () => {
-    this.selectedServices = new Set();
+    this.props.updateStreamingSelections(this.props.services);
   };
 
   toggleCheckbox = label => {
-    if (this.selectedServices.has(label)) {
-      this.selectedServices.delete(label);
+    if (this.props.services.includes(label)) {
+      remove(this.props.services, service => service === label);
     } else {
-      this.selectedServices.add(label);
+      this.props.services.push(label);
     }
-    this.props.updateStreamingSelections(this.selectedServices);
+    this.props.updateStreamingSelections(this.props.services);
   };
 
   createCheckbox = label => (

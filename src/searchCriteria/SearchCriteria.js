@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import './SearchCriteria.css';
 import Genres from './genres/Genres';
 import Streaming from './streaming/Streaming';
 import Buttons from './buttons/Buttons';
 
 class SearchCriteria extends Component {
-  search = () => {
-    console.log('search');
-  };
+  search = () => {};
 
   render() {
     return (
@@ -24,5 +23,9 @@ class SearchCriteria extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  genres: state.genres,
+  services: state.streamingServices
+});
 
-export default SearchCriteria;
+export default connect(mapStateToProps, null)(SearchCriteria);
