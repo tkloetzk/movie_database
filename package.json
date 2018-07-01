@@ -25,7 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "precommit": "eslint *.js --fix --quiet && lint-staged",
+    "precommit": "lint-staged",
     "lint-js": "eslint src/**/*.js",
     "lint-js-fix": "eslint src/**/*.js --fix --quiet",
     "format": "prettier-standard 'src/**/*.js'"
@@ -33,6 +33,8 @@
   "lint-staged" : {
     "linters": {
       "src/**/*.js": [
+        "yarn run lint-js-fix",
+        "eslint *.js --fix --quiet",
         "prettier-standard",
         "git add"
       ]
