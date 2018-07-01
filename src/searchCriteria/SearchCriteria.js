@@ -11,7 +11,7 @@ import Buttons from './buttons/Buttons';
 
 class SearchCriteria extends Component {
   getSearchedMovies = () => {
-    this.props.fetchSearchedMovies();
+    this.props.fetchSearchedMovies(this.props.genres);
   };
 
   render() {
@@ -39,7 +39,12 @@ const mapDispatchToProps = dispatch => bindActionCreators({ fetchSearchedMovies 
 
 SearchCriteria.propTypes = {
   fetchSearchedMovies: PropTypes.func.isRequired,
-  movies: PropTypes.arrayOf(PropTypes.object).isRequired
+  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  genres: PropTypes.string
+};
+
+SearchCriteria.defaultProps = {
+  genres: []
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCriteria);

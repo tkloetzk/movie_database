@@ -9,8 +9,6 @@ import {
   fetchSearchedMoviesIsLoading
 } from '../searchCriteria/searchCriteria-reducer';
 
-// import rootSaga from '../sagas'
-
 const rootReducer = combineReducers({
   genres,
   streamingServices,
@@ -21,7 +19,6 @@ const rootReducer = combineReducers({
 
 const configureStore = () => ({
   ...createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
-  // runSaga: sagaMiddleware.run(rootSaga)
 });
 
 export default configureStore;
