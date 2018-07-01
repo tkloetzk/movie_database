@@ -1,4 +1,4 @@
-import React from 'react';
+import { React } from 'react';
 import './App.css';
 import Header from './header/Header';
 import SearchCriteria from '../searchCriteria/SearchCriteria';
