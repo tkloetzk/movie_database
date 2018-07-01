@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 
-export default class Results extends Component {
-  render() {
-    return <Grid />;
-  }
-}
+const Results = () => <Grid />;
+
+export default Results;
