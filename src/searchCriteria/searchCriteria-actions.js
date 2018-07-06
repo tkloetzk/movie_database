@@ -30,15 +30,12 @@ export function fetchSearchedMoviesFetchDataSuccess(movies) {
 export function fetchSearchedMovies(genres) {
   return dispatch => {
     dispatch(fetchSearchedMoviessIsLoading(true));
-    const genresArray = map(genres, genre => `%5B%22${genre}%22%5D`);
-    console.log(genresArray);
-    //    const url = `page=1&q={"filters":[{"name":"genres","op":"any","val":{"name":"name","op":"in","val":${genresArray}}},{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":["netflix:","hulu:free","hulu:plus","prime:"]}}],"order_by":[]}`;
-    console.log(encodeURI(genresArray));
+    const genresArray = map(genres, genre => genre.value);
+    const encodedGenres = encodeURIComponent(JSON.stringify(genresArray));
+    const url = `http://www.flixfindr.com/api/movie?page=1&q={"filters":[{"name":"genres","op":"any","val":{"name":"name","op":"in","val":${encodedGenres}}},{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":["netflix:","hulu:free","hulu:plus","prime:"]}}],"order_by":[]}`;
 
     axios
-      .get(
-        `http://www.flixfindr.com/api/movie?page=1&q={"filters":[{"name":"genres","op":"any","val":{"name":"name","op":"in","val":${genresArray}}},{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":["netflix:","hulu:free","hulu:plus","prime:"]}}],"order_by":[]}`
-      )
+      .get(url)
       .then(movies => {
         dispatch(fetchSearchedMoviessIsLoading(false));
         dispatch(fetchSearchedMoviesFetchDataSuccess(movies.data.objects));
