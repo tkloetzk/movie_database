@@ -27,12 +27,17 @@ export function fetchSearchedMoviesFetchDataSuccess(movies) {
   };
 }
 
-export function fetchSearchedMovies(genres) {
+export function fetchSearchedMovies(genres, services, personal) {
   return dispatch => {
     dispatch(fetchSearchedMoviessIsLoading(true));
     const genresArray = map(genres, genre => genre.value);
     const encodedGenres = encodeURIComponent(JSON.stringify(genresArray));
-    const url = `http://www.flixfindr.com/api/movie?page=1&q={"filters":[{"name":"genres","op":"any","val":{"name":"name","op":"in","val":${encodedGenres}}},{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":["netflix:","hulu:free","hulu:plus","prime:"]}}],"order_by":[]}`;
+    const encodedServices = encodeURIComponent(JSON.stringify(services));
+
+    if (personal) {
+      console.log('get personal movies from DB. Combine into promise');
+    }
+    const url = `http://www.flixfindr.com/api/movie?page=1&q={"filters":[{"name":"genres","op":"any","val":{"name":"name","op":"in","val":${encodedGenres}}},{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":${encodedServices}}}],"order_by":[]}`;
 
     axios
       .get(url)

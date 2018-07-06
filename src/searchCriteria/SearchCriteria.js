@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { forEach } from 'lodash';
 import PropTypes from 'prop-types';
 import { fetchSearchedMovies } from './searchCriteria-actions';
 import './SearchCriteria.css';
@@ -11,7 +12,19 @@ import Buttons from './buttons/Buttons';
 
 class SearchCriteria extends Component {
   getSearchedMovies = () => {
-    this.props.fetchSearchedMovies(this.props.genres);
+    const services = [];
+    let personal = false;
+    forEach(this.props.services, service => {
+      if (service === 'Hulu') {
+        services.push('hulu:free');
+        services.push('hulu:plus');
+      } else if (service === 'Personal') {
+        personal = true;
+      } else {
+        services.push(service.toLowerCase());
+      }
+    });
+    this.props.fetchSearchedMovies(this.props.genres, services, personal);
   };
 
   render() {
@@ -40,11 +53,13 @@ const mapDispatchToProps = dispatch => bindActionCreators({ fetchSearchedMovies 
 SearchCriteria.propTypes = {
   fetchSearchedMovies: PropTypes.func.isRequired,
   movies: PropTypes.arrayOf(PropTypes.object).isRequired,
-  genres: PropTypes.string
+  genres: PropTypes.arrayOf(PropTypes.string),
+  services: PropTypes.arrayOf(PropTypes.string)
 };
 
 SearchCriteria.defaultProps = {
-  genres: []
+  genres: [],
+  services: []
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCriteria);
