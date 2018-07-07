@@ -52,7 +52,9 @@ export function fetchSearchedMovies(genres, services, personal) {
       })
       .catch(error => {
         console.log(error);
-        // if cors error install https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related on chrome
+        console.log(
+          'install https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related on chrome'
+        );
         dispatch(fetchSearchedMoviesHasErrored(true));
       });
   };
