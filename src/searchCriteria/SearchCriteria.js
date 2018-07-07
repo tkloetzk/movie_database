@@ -49,15 +49,15 @@ class SearchCriteria extends Component {
           <Genres />
           <Streaming />
           <ButtonToolbar className="col-sm-3 align-self-center minHeight34">
-            <Buttons btnSize="btn-65px" glyph="bookmark" />
-            <Buttons btnSize="btn-110px" glyph="search" onClick={this.getSearchedMovies} />
-            <Buttons btnSize="btn-65px" glyph="save" />
+            <Buttons btnSize="btn-54px" glyph="bookmark" />
+            <Buttons btnSize="btn-90px" glyph="search" onClick={this.getSearchedMovies} />
+            <Buttons btnSize="btn-54px" glyph="save" />
             <div
               className={`chevron btn ${this.state.collapse ? 'down' : ''}`}
               onClick={this.toggle}
               onKeyPress={this.toggle}
               role="button"
-              tabIndex={-1}
+              tabIndex={0}
               id="chevron"
             >
               <span className="arm left" />
