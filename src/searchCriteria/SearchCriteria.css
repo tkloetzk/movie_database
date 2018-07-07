@@ -7,3 +7,29 @@
 .minHeight34 {
   min-height: 34px;
 }
+
+.chevron {
+  display: inline-block;
+  margin-top: 1%;
+  width: 25px;
+}
+.chevron .arm {
+  width: 6px;
+  height: 14px;
+  transition: all 0.15s linear;
+  display: inline-block;
+}
+.chevron .left {
+  background: cornflowerblue;
+  transform: rotate(-135deg);
+}
+.chevron .right {
+  background: cornflowerblue;
+  transform: rotate(-45deg);
+}
+.chevron.down .left {
+  transform: rotate(-45deg);
+}
+.chevron.down .right {
+  transform: rotate(-135deg);
+}

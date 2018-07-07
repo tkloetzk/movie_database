@@ -3,6 +3,7 @@ import { ButtonToolbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { forEach } from 'lodash';
+import { Collapse } from 'mdbreact';
 import PropTypes from 'prop-types';
 import { fetchSearchedMovies } from './searchCriteria-actions';
 import './SearchCriteria.css';
@@ -11,6 +12,15 @@ import Streaming from './streaming/Streaming';
 import Buttons from './buttons/Buttons';
 
 class SearchCriteria extends Component {
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+
+    this.state = {
+      collapse: false
+    };
+  }
+
   getSearchedMovies = () => {
     const services = [];
     let personal = false;
@@ -27,17 +37,41 @@ class SearchCriteria extends Component {
     this.props.fetchSearchedMovies(this.props.genres, services, personal);
   };
 
+  toggle() {
+    this.setState({ collapse: !this.state.collapse });
+  }
+
   render() {
     console.log(this.props.movies);
     return (
-      <div className="row rounded" id="searchCriteria">
-        <Genres />
-        <Streaming />
-        <ButtonToolbar className="col-sm-3 align-self-center minHeight34">
-          <Buttons btnSize="btn-65px" glyph="bookmark" />
-          <Buttons btnSize="btn-110px" glyph="search" onClick={this.getSearchedMovies} />
-          <Buttons btnSize="btn-65px" glyph="save" />
-        </ButtonToolbar>
+      <div>
+        <div className="row rounded" id="searchCriteria">
+          <Genres />
+          <Streaming />
+          <ButtonToolbar className="col-sm-3 align-self-center minHeight34">
+            <Buttons btnSize="btn-65px" glyph="bookmark" />
+            <Buttons btnSize="btn-110px" glyph="search" onClick={this.getSearchedMovies} />
+            <Buttons btnSize="btn-65px" glyph="save" />
+            <div
+              className={`chevron btn ${this.state.collapse ? 'down' : ''}`}
+              onClick={this.toggle}
+              onKeyPress={this.toggle}
+              role="button"
+              tabIndex={-1}
+              id="chevron"
+            >
+              <span className="arm left" />
+              <span className="arm right" />
+            </div>
+          </ButtonToolbar>
+          <Collapse isOpen={this.state.collapse} className="col-sm-12">
+            <p>
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson
+              ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+              sapiente ea proident.
+            </p>
+          </Collapse>
+        </div>
       </div>
     );
   }
