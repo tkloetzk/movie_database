@@ -31,14 +31,18 @@ export function fetchSearchedMovies(genres, services, personal) {
   return dispatch => {
     dispatch(fetchSearchedMoviessIsLoading(true));
     const genresArray = map(genres, genre => genre.value);
-    const encodedGenres = encodeURIComponent(JSON.stringify(genresArray));
+    const encodedGenres =
+      genresArray.length > 0
+        ? `{"name":"genres","op":"any","val":{"name":"name","op":"in","val":${encodeURIComponent(
+            JSON.stringify(genresArray)
+          )}}},`
+        : '';
     const encodedServices = encodeURIComponent(JSON.stringify(services));
 
     if (personal) {
       console.log('get personal movies from DB. Combine into promise');
     }
-    const url = `http://www.flixfindr.com/api/movie?page=1&q={"filters":[{"name":"genres","op":"any","val":{"name":"name","op":"in","val":${encodedGenres}}},{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":${encodedServices}}}],"order_by":[]}`;
-
+    const url = `http://www.flixfindr.com/api/movie?page=1&q={"filters":[${encodedGenres}{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":${encodedServices}}}],"order_by":[{"field":"critics_score","direction":"desc"}]}`;
     axios
       .get(url)
       .then(movies => {
