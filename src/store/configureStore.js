@@ -8,10 +8,14 @@ import {
   fetchSearchedMoviesHasErrored,
   fetchSearchedMoviesIsLoading
 } from '../searchCriteria/searchCriteria-reducer';
+import collapse from '../util/chevron-reducer';
+import tomatometer from '../additionalSearchCriteria/tomatometer/tomatometer-reducer';
 
 const rootReducer = combineReducers({
   genres,
   streamingServices,
+  collapse,
+  tomatometer,
   fetchSearchedMoviesHasErrored,
   fetchSearchedMoviesIsLoading,
   movies

@@ -53,3 +53,12 @@ fieldset[disabled] .btn-custom-main.active {
 .btn-90px {
   width: 90px;
 }
+
+.rangeslider-horizontal .rangeslider__handle:after {
+  content: none !important;
+}
+
+.rangeslider__handle-label {
+  margin-left: 15%;
+  margin-top: 7%;
+}

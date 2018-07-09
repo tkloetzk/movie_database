@@ -5,26 +5,20 @@ import { bindActionCreators } from 'redux';
 import { forEach } from 'lodash';
 import { Collapse } from 'mdbreact';
 import PropTypes from 'prop-types';
+import 'react-rangeslider/lib/index.css';
 import { fetchSearchedMovies } from './searchCriteria-actions';
 import './SearchCriteria.css';
 import Genres from './genres/Genres';
 import Streaming from './streaming/Streaming';
 import Buttons from './buttons/Buttons';
+import Chevron from './../util/Chevron';
+import AdditionalSearchCriteria from './../additionalSearchCriteria/AdditionalSearchCriteria';
 
 class SearchCriteria extends Component {
-  constructor(props) {
-    super(props);
-    this.toggle = this.toggle.bind(this);
-
-    this.state = {
-      collapse: false
-    };
-  }
-
   getSearchedMovies = () => {
-    const services = [];
+    const { genres, tomatometer, collapse, services } = this.props;
     let personal = false;
-    forEach(this.props.services, service => {
+    forEach(services, service => {
       if (service === 'Hulu') {
         services.push('hulu:free');
         services.push('hulu:plus');
@@ -34,15 +28,16 @@ class SearchCriteria extends Component {
         services.push(service.toLowerCase());
       }
     });
-    this.props.fetchSearchedMovies(this.props.genres, services, personal);
+    const parameters = {
+      genres,
+      services,
+      personal,
+      tomatometer: collapse ? tomatometer : null
+    };
+    this.props.fetchSearchedMovies(parameters);
   };
 
-  toggle() {
-    this.setState({ collapse: !this.state.collapse });
-  }
-
   render() {
-    console.log(this.props.movies);
     return (
       <div>
         <div className="row rounded" id="searchCriteria">
@@ -52,24 +47,10 @@ class SearchCriteria extends Component {
             <Buttons btnSize="btn-54px" glyph="bookmark" />
             <Buttons btnSize="btn-90px" glyph="search" onClick={this.getSearchedMovies} />
             <Buttons btnSize="btn-54px" glyph="save" />
-            <div
-              className={`chevron btn ${this.state.collapse ? 'down' : ''}`}
-              onClick={this.toggle}
-              onKeyPress={this.toggle}
-              role="button"
-              tabIndex={0}
-              id="chevron"
-            >
-              <span className="arm left" />
-              <span className="arm right" />
-            </div>
+            <Chevron />
           </ButtonToolbar>
-          <Collapse isOpen={this.state.collapse} className="col-sm-12">
-            <p>
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson
-              ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-              sapiente ea proident.
-            </p>
+          <Collapse isOpen={this.props.collapse} className="col-sm-12">
+            <AdditionalSearchCriteria />
           </Collapse>
         </div>
       </div>
@@ -79,21 +60,25 @@ class SearchCriteria extends Component {
 const mapStateToProps = state => ({
   movies: state.movies,
   genres: state.genres,
-  services: state.streamingServices
+  services: state.streamingServices,
+  collapse: state.collapse,
+  tomatometer: state.tomatometer
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ fetchSearchedMovies }, dispatch);
 
 SearchCriteria.propTypes = {
   fetchSearchedMovies: PropTypes.func.isRequired,
-  movies: PropTypes.arrayOf(PropTypes.object).isRequired,
   genres: PropTypes.arrayOf(PropTypes.string),
-  services: PropTypes.arrayOf(PropTypes.string)
+  services: PropTypes.arrayOf(PropTypes.string),
+  collapse: PropTypes.bool.isRequired,
+  tomatometer: PropTypes.number
 };
 
 SearchCriteria.defaultProps = {
   genres: [],
-  services: []
+  services: [],
+  tomatometer: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCriteria);

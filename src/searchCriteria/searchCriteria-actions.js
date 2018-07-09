@@ -27,9 +27,10 @@ export function fetchSearchedMoviesFetchDataSuccess(movies) {
   };
 }
 
-export function fetchSearchedMovies(genres, services, personal) {
+export function fetchSearchedMovies(parameters) {
   return dispatch => {
     dispatch(fetchSearchedMoviessIsLoading(true));
+    const { genres, services, personal, tomatometer } = parameters;
     const genresArray = map(genres, genre => genre.value);
     const encodedGenres =
       genresArray.length > 0
@@ -39,10 +40,13 @@ export function fetchSearchedMovies(genres, services, personal) {
         : '';
     const encodedServices = encodeURIComponent(JSON.stringify(services));
 
+    const tomatometerUrl =
+      tomatometer !== null ? `{"name":"critics_score","op":"ge","val":${tomatometer}},` : '';
+
     if (personal) {
       console.log('get personal movies from DB. Combine into promise');
     }
-    const url = `http://www.flixfindr.com/api/movie?page=1&q={"filters":[${encodedGenres}{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":${encodedServices}}}],"order_by":[{"field":"critics_score","direction":"desc"}]}`;
+    const url = `http://www.flixfindr.com/api/movie?page=1&q={"filters":[${tomatometerUrl}${encodedGenres}{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":${encodedServices}}}],"order_by":[{"field":"critics_score","direction":"desc"}]}`;
     axios
       .get(url)
       .then(movies => {

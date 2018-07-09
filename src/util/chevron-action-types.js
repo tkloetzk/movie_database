@@ -1,0 +1,2 @@
+const UPDATE_CHEVRON = 'UPDATE_CHEVRON';
+export default UPDATE_CHEVRON;
