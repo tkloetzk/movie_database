@@ -13,17 +13,17 @@ class Genres extends Component {
 
   render() {
     const genresDropDown = [
-      { value: 'Action, Adventure', label: 'Action/Adventure' },
+      { value: 'Action & Adventure', label: 'Action/Adventure' },
       { value: 'Animation', label: 'Animation' },
       { value: 'Classics', label: 'Classics' },
       { value: 'Comedy', label: 'Comedy' },
       { value: 'Documentary', label: 'Documentary' },
       { value: 'Drama', label: 'Drama' },
       { value: 'Horror', label: 'Horror' },
-      { value: 'Family', label: 'Kids & Family' },
-      { value: 'Musical', label: 'Musical' },
+      { value: 'Kids & Family', label: 'Kids & Family' },
+      { value: 'Musical & Performing Arts', label: 'Musical' },
       { value: 'Romance', label: 'Romance' },
-      { value: 'Sci-Fi', label: 'Sci-Fi & Fantasy' }
+      { value: 'Science Fiction & Fantasy', label: 'Sci-Fi & Fantasy' }
     ];
     return (
       <div className="col-sm-5">

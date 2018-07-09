@@ -46,10 +46,19 @@ fieldset[disabled] .btn-custom-main.active {
   border-radius: 0;
 }
 
-.btn-65px {
-  width: 65px;
+.btn-54px {
+  width: 54px;
 }
 
-.btn-110px {
-  width: 110px;
+.btn-90px {
+  width: 90px;
+}
+
+.rangeslider-horizontal .rangeslider__handle:after {
+  content: none !important;
+}
+
+.rangeslider__handle-label {
+  margin-left: 15%;
+  margin-top: 7%;
 }

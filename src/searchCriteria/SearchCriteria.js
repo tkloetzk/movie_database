@@ -2,29 +2,57 @@ import React, { Component } from 'react';
 import { ButtonToolbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { forEach } from 'lodash';
+import { Collapse } from 'mdbreact';
 import PropTypes from 'prop-types';
+import 'react-rangeslider/lib/index.css';
 import { fetchSearchedMovies } from './searchCriteria-actions';
 import './SearchCriteria.css';
 import Genres from './genres/Genres';
 import Streaming from './streaming/Streaming';
 import Buttons from './buttons/Buttons';
+import Chevron from './../util/Chevron';
+import AdditionalSearchCriteria from './../additionalSearchCriteria/AdditionalSearchCriteria';
 
 class SearchCriteria extends Component {
   getSearchedMovies = () => {
-    this.props.fetchSearchedMovies();
+    const { genres, tomatometer, collapse, services } = this.props;
+    let personal = false;
+    forEach(services, service => {
+      if (service === 'Hulu') {
+        services.push('hulu:free');
+        services.push('hulu:plus');
+      } else if (service === 'Personal') {
+        personal = true;
+      } else {
+        services.push(service.toLowerCase());
+      }
+    });
+    const parameters = {
+      genres,
+      services,
+      personal,
+      tomatometer: collapse ? tomatometer : null
+    };
+    this.props.fetchSearchedMovies(parameters);
   };
 
   render() {
-    console.log(this.props.movies);
     return (
-      <div className="row rounded" id="searchCriteria">
-        <Genres />
-        <Streaming />
-        <ButtonToolbar className="col-sm-3 align-self-center minHeight34">
-          <Buttons btnSize="btn-65px" glyph="bookmark" />
-          <Buttons btnSize="btn-110px" glyph="search" onClick={this.getSearchedMovies} />
-          <Buttons btnSize="btn-65px" glyph="save" />
-        </ButtonToolbar>
+      <div>
+        <div className="row rounded" id="searchCriteria">
+          <Genres />
+          <Streaming />
+          <ButtonToolbar className="col-sm-3 align-self-center minHeight34">
+            <Buttons btnSize="btn-54px" glyph="bookmark" />
+            <Buttons btnSize="btn-90px" glyph="search" onClick={this.getSearchedMovies} />
+            <Buttons btnSize="btn-54px" glyph="save" />
+            <Chevron />
+          </ButtonToolbar>
+          <Collapse isOpen={this.props.collapse} className="col-sm-12">
+            <AdditionalSearchCriteria />
+          </Collapse>
+        </div>
       </div>
     );
   }
@@ -32,14 +60,25 @@ class SearchCriteria extends Component {
 const mapStateToProps = state => ({
   movies: state.movies,
   genres: state.genres,
-  services: state.streamingServices
+  services: state.streamingServices,
+  collapse: state.collapse,
+  tomatometer: state.tomatometer
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ fetchSearchedMovies }, dispatch);
 
 SearchCriteria.propTypes = {
   fetchSearchedMovies: PropTypes.func.isRequired,
-  movies: PropTypes.arrayOf(PropTypes.object).isRequired
+  genres: PropTypes.arrayOf(PropTypes.string),
+  services: PropTypes.arrayOf(PropTypes.string),
+  collapse: PropTypes.bool.isRequired,
+  tomatometer: PropTypes.number
+};
+
+SearchCriteria.defaultProps = {
+  genres: [],
+  services: [],
+  tomatometer: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCriteria);

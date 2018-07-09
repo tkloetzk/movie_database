@@ -1,3 +1,5 @@
+import { map } from 'lodash';
+import axios from 'axios';
 import {
   FETCH_SEARCHED_MOVIES_HAS_ERRORED,
   FETCH_SEARCHED_MOVIES_SUCCESS,
@@ -25,21 +27,38 @@ export function fetchSearchedMoviesFetchDataSuccess(movies) {
   };
 }
 
-export function fetchSearchedMovies() {
+export function fetchSearchedMovies(parameters) {
   return dispatch => {
     dispatch(fetchSearchedMoviessIsLoading(true));
-    fetch(
-      'http://www.flixfindr.com/api/movie?page=1&q={"filters":[{"name":"genres","op":"any","val":{"name":"name","op":"in","val":["Comedy"]}},{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":["netflix:","hulu:free","hulu:plus","prime:"]}}],"order_by":[]}'
-    )
-      //  fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
+    const { genres, services, personal, tomatometer } = parameters;
+    const genresArray = map(genres, genre => genre.value);
+    const encodedGenres =
+      genresArray.length > 0
+        ? `{"name":"genres","op":"any","val":{"name":"name","op":"in","val":${encodeURIComponent(
+            JSON.stringify(genresArray)
+          )}}},`
+        : '';
+    const encodedServices = encodeURIComponent(JSON.stringify(services));
+
+    const tomatometerUrl =
+      tomatometer !== null ? `{"name":"critics_score","op":"ge","val":${tomatometer}},` : '';
+
+    if (personal) {
+      console.log('get personal movies from DB. Combine into promise');
+    }
+    const url = `http://www.flixfindr.com/api/movie?page=1&q={"filters":[${tomatometerUrl}${encodedGenres}{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":${encodedServices}}}],"order_by":[{"field":"critics_score","direction":"desc"}]}`;
+    axios
+      .get(url)
       .then(movies => {
         dispatch(fetchSearchedMoviessIsLoading(false));
-        dispatch(fetchSearchedMoviesFetchDataSuccess(movies.objects));
-        return movies; // needed?
+        dispatch(fetchSearchedMoviesFetchDataSuccess(movies.data.objects));
+        return movies.data.objects; // needed?
       })
-      .catch(() => {
-        // if cors error install https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related on chrome
+      .catch(error => {
+        console.log(error);
+        console.log(
+          'install https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi/related on chrome'
+        );
         dispatch(fetchSearchedMoviesHasErrored(true));
       });
   };

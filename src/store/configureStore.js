@@ -8,12 +8,14 @@ import {
   fetchSearchedMoviesHasErrored,
   fetchSearchedMoviesIsLoading
 } from '../searchCriteria/searchCriteria-reducer';
-
-// import rootSaga from '../sagas'
+import collapse from '../util/chevron-reducer';
+import tomatometer from '../additionalSearchCriteria/tomatometer/tomatometer-reducer';
 
 const rootReducer = combineReducers({
   genres,
   streamingServices,
+  collapse,
+  tomatometer,
   fetchSearchedMoviesHasErrored,
   fetchSearchedMoviesIsLoading,
   movies
@@ -21,7 +23,6 @@ const rootReducer = combineReducers({
 
 const configureStore = () => ({
   ...createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
-  // runSaga: sagaMiddleware.run(rootSaga)
 });
 
 export default configureStore;
