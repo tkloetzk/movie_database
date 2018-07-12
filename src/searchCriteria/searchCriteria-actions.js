@@ -30,7 +30,7 @@ export function fetchSearchedMoviesFetchDataSuccess(movies) {
 export function fetchSearchedMovies(parameters) {
   return dispatch => {
     dispatch(fetchSearchedMoviessIsLoading(true));
-    const { genres, services, personal, tomatometer } = parameters;
+    const { genres, streaming, personal, tomatometer } = parameters;
     const genresArray = map(genres, genre => genre.value);
     const encodedGenres =
       genresArray.length > 0
@@ -38,7 +38,7 @@ export function fetchSearchedMovies(parameters) {
             JSON.stringify(genresArray)
           )}}},`
         : '';
-    const encodedServices = encodeURIComponent(JSON.stringify(services));
+    const encodedServices = encodeURIComponent(JSON.stringify(streaming));
 
     const tomatometerUrl =
       tomatometer !== null ? `{"name":"critics_score","op":"ge","val":${tomatometer}},` : '';

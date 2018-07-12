@@ -18,19 +18,20 @@ class SearchCriteria extends Component {
   getSearchedMovies = () => {
     const { genres, tomatometer, collapse, services } = this.props;
     let personal = false;
+    const streaming = [];
     forEach(services, service => {
       if (service === 'Hulu') {
-        services.push('hulu:free');
-        services.push('hulu:plus');
+        streaming.push('hulu:free');
+        streaming.push('hulu:plus');
       } else if (service === 'Personal') {
         personal = true;
       } else {
-        services.push(service.toLowerCase());
+        streaming.push(`${service.toLowerCase()}:`);
       }
     });
     const parameters = {
       genres,
-      services,
+      streaming,
       personal,
       tomatometer: collapse ? tomatometer : null
     };
