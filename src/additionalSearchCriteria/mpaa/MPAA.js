@@ -11,4 +11,5 @@ const MPAA = () => (
     <Box>Unrated</Box>
   </div>
 );
+
 export default MPAA;

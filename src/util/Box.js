@@ -7,6 +7,9 @@ export default class Box extends Component {
   toggleHover = () => {
     this.setState({ hover: !this.state.hover });
   };
+  addMPAA = e => {
+    console.log(e.target.textContent);
+  };
   render() {
     const letterStyle = {
       paddingTop: 10,
@@ -22,17 +25,21 @@ export default class Box extends Component {
     };
     let hoverStyle;
     if (this.state.hover) {
-      hoverStyle = { backgroundColor: 'cornflowerblue', color: 'white' };
+      hoverStyle = { backgroundColor: 'cornflowerblue', color: 'white', cursor: 'pointer' };
     } else {
-      hoverStyle = { backgroundColor: 'white', color: 'cornflowerblue' };
+      hoverStyle = { backgroundColor: 'white', color: 'cornflowerblue', cursor: 'default' };
     }
 
     return (
       <div
         style={{ ...letterStyle, ...hoverStyle }}
         className="rounded"
+        role="button"
+        tabIndex="0"
         onMouseEnter={this.toggleHover}
         onMouseLeave={this.toggleHover}
+        onKeyDown={this.addMPAA}
+        onClick={this.addMPAA}
       >
         {this.props.children}
       </div>
