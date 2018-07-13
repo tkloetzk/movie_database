@@ -50,7 +50,7 @@ class SearchCriteria extends Component {
             <Buttons btnSize="btn-54px" glyph="save" />
             <Chevron />
           </ButtonToolbar>
-          <Collapse isOpen={this.props.collapse} className="col-sm-12">
+          <Collapse isOpen={this.props.collapse}>
             <AdditionalSearchCriteria />
           </Collapse>
         </div>

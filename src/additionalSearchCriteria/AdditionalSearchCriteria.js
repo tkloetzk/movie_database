@@ -1,9 +1,11 @@
 import React from 'react';
 import Tomatometer from './tomatometer/Tomatometer';
+import MPAA from './mpaa/MPAA';
 
 const AdditionalSearchCriteria = () => (
-  <div>
+  <div className="col-sm-12 pt-2">
     <Tomatometer />
+    <MPAA />
   </div>
 );
 

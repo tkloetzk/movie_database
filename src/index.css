@@ -62,3 +62,7 @@ fieldset[disabled] .btn-custom-main.active {
   margin-left: 15%;
   margin-top: 7%;
 }
+
+.rangeslider-horizontal .rangeslider__fill {
+  background-color: cornflowerblue !important;
+}

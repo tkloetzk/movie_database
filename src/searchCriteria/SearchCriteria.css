@@ -10,8 +10,9 @@
 
 .chevron {
   display: inline-block;
-  margin-top: 1%;
+  padding-bottom: 1%;
   width: 37px;
+  transform: rotate(180deg);
 }
 .chevron .arm {
   width: 6px;
