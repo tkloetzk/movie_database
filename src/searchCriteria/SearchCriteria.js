@@ -16,7 +16,7 @@ import AdditionalSearchCriteria from './../additionalSearchCriteria/AdditionalSe
 
 class SearchCriteria extends Component {
   getSearchedMovies = () => {
-    const { genres, tomatometer, collapse, services } = this.props;
+    const { genres, tomatometer, collapse, services, mpaaRating } = this.props;
     let personal = false;
     const streaming = [];
     forEach(services, service => {
@@ -33,7 +33,8 @@ class SearchCriteria extends Component {
       genres,
       streaming,
       personal,
-      tomatometer: collapse ? tomatometer : null
+      tomatometer: collapse ? tomatometer : null,
+      mpaaRating
     };
     this.props.fetchSearchedMovies(parameters);
   };
@@ -63,7 +64,8 @@ const mapStateToProps = state => ({
   genres: state.genres,
   services: state.streamingServices,
   collapse: state.collapse,
-  tomatometer: state.tomatometer
+  tomatometer: state.tomatometer,
+  mpaaRating: state.mpaaRating
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ fetchSearchedMovies }, dispatch);
@@ -73,13 +75,15 @@ SearchCriteria.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string),
   services: PropTypes.arrayOf(PropTypes.string),
   collapse: PropTypes.bool.isRequired,
-  tomatometer: PropTypes.number
+  tomatometer: PropTypes.number,
+  mpaaRating: PropTypes.arrayOf(PropTypes.string)
 };
 
 SearchCriteria.defaultProps = {
   genres: [],
   services: [],
-  tomatometer: null
+  tomatometer: null,
+  mpaaRating: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCriteria);

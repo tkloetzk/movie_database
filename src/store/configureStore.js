@@ -10,12 +10,14 @@ import {
 } from '../searchCriteria/searchCriteria-reducer';
 import collapse from '../util/chevron-reducer';
 import tomatometer from '../additionalSearchCriteria/tomatometer/tomatometer-reducer';
+import mpaaRating from '../additionalSearchCriteria/mpaa/mpaa-reducer';
 
 const rootReducer = combineReducers({
   genres,
   streamingServices,
   collapse,
   tomatometer,
+  mpaaRating,
   fetchSearchedMoviesHasErrored,
   fetchSearchedMoviesIsLoading,
   movies

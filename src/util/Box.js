@@ -2,15 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class Box extends Component {
-  state = { hover: false };
+  state = { hover: false, isSelected: true };
 
   toggleHover = () => {
     this.setState({ hover: !this.state.hover });
   };
-  addMPAA = e => {
-    console.log(e.target.textContent);
+
+  toggleMPAAChange = () => {
+    const { handleMPAAChange, label } = this.props;
+
+    this.setState(({ isSelected }) => ({
+      isSelected: !isSelected
+    }));
+
+    handleMPAAChange(label);
   };
+
   render() {
+    const { label } = this.props;
+    const { isSelected } = this.state;
+
     const letterStyle = {
       paddingTop: 10,
       paddingBottom: 10,
@@ -23,29 +34,30 @@ export default class Box extends Component {
       textAlign: 'center',
       border: '1px solid cornflowerblue'
     };
-    let hoverStyle;
-    if (this.state.hover) {
-      hoverStyle = { backgroundColor: 'cornflowerblue', color: 'white', cursor: 'pointer' };
+    let activeStyle;
+    if (this.state.hover || isSelected) {
+      activeStyle = { backgroundColor: 'cornflowerblue', color: 'white', cursor: 'pointer' };
     } else {
-      hoverStyle = { backgroundColor: 'white', color: 'cornflowerblue', cursor: 'default' };
+      activeStyle = { backgroundColor: 'white', color: 'cornflowerblue', cursor: 'default' };
     }
 
     return (
       <div
-        style={{ ...letterStyle, ...hoverStyle }}
-        className="rounded"
+        style={{ ...letterStyle, ...activeStyle }}
+        className={'rounded'}
         role="button"
         tabIndex="0"
         onMouseEnter={this.toggleHover}
         onMouseLeave={this.toggleHover}
-        onKeyDown={this.addMPAA}
-        onClick={this.addMPAA}
+        onKeyDown={this.toggleMPAAChange}
+        onClick={this.toggleMPAAChange}
       >
-        {this.props.children}
+        {label}
       </div>
     );
   }
 }
 Box.propTypes = {
-  children: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  handleMPAAChange: PropTypes.func.isRequired
 };
