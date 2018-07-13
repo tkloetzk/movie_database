@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { remove } from 'lodash';
+import { remove, map } from 'lodash';
 import PropTypes from 'prop-types';
 import Box from '../../util/Box';
 import * as mpaaActions from './mpaa-actions';
@@ -22,7 +22,7 @@ class MPAA extends Component {
 
   createMPAA = label => <Box label={label} handleMPAAChange={this.toggleMPAA} key={label} />;
 
-  createMPAASelections = () => this.props.mpaaArray.map(this.createMPAA);
+  createMPAASelections = () => map(this.props.mpaaArray, mpaa => this.createMPAA(mpaa));
 
   render() {
     return <div className="col-sm-6 text-center pt-2">{this.createMPAASelections()}</div>;
@@ -35,10 +35,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators(mpaaActions, dispatch);
 
+MPAA.defaultProps = {
+  mpaaArray: ['G', 'PG', 'PG-13', 'R', 'NC-17', 'Unrated']
+};
+
 MPAA.propTypes = {
   updateMPAASelections: PropTypes.func.isRequired,
   mpaaRating: PropTypes.arrayOf(PropTypes.string).isRequired,
-  mpaaArray: PropTypes.arrayOf(PropTypes.string).isRequired
+  mpaaArray: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MPAA);

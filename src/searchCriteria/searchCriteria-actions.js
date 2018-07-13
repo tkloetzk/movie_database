@@ -44,7 +44,11 @@ export function fetchSearchedMovies(parameters) {
       tomatometer !== null ? `{"name":"critics_score","op":"ge","val":${tomatometer}},` : '';
 
     const mpaaRatingUrl =
-      mpaaRating !== null ? `{"name":"mpaa_rating","op":"in","val":${mpaaRating}},` : '';
+      mpaaRating !== null
+        ? `{"name":"mpaa_rating","op":"in","val":${encodeURIComponent(
+            JSON.stringify(mpaaRating)
+          )}},`
+        : '';
 
     if (personal) {
       console.log('get personal movies from DB. Combine into promise');
