@@ -25,7 +25,7 @@ class MPAA extends Component {
   createMPAASelections = () => map(this.props.mpaaArray, mpaa => this.createMPAA(mpaa));
 
   render() {
-    return <div className="col-sm-6 text-center pt-2">{this.createMPAASelections()}</div>;
+    return <div className="col-sm-3 text-center pt-2">{this.createMPAASelections()}</div>;
   }
 }
 

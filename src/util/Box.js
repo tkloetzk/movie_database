@@ -23,11 +23,11 @@ export default class Box extends Component {
     const { isSelected } = this.state;
 
     const letterStyle = {
-      paddingTop: 10,
-      paddingBottom: 10,
-      paddingLeft: 15,
-      paddingRight: 15,
-      margin: 10,
+      paddingTop: 5,
+      paddingBottom: 5,
+      paddingLeft: 12,
+      paddingRight: 12,
+      margin: 6,
       display: 'inline-block',
       fontFamily: 'monospace',
       fontSize: 15,
