@@ -54,11 +54,9 @@ fieldset[disabled] .btn-custom-main.active {
   width: 90px;
 }
 
-.rangeslider-horizontal .rangeslider__handle:after {
-  content: none !important;
+.input-range__track {
+  height: .7rem !important;
 }
-
-.rangeslider__handle-label {
-  margin-left: 15%;
-  margin-top: 7%;
+.input-range__track--active {
+  background-color: cornflowerblue !important;
 }

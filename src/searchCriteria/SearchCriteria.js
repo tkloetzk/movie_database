@@ -16,23 +16,26 @@ import AdditionalSearchCriteria from './../additionalSearchCriteria/AdditionalSe
 
 class SearchCriteria extends Component {
   getSearchedMovies = () => {
-    const { genres, tomatometer, collapse, services } = this.props;
+    const { genres, tomatometer, collapse, services, mpaaRating, years } = this.props;
     let personal = false;
+    const streaming = [];
     forEach(services, service => {
       if (service === 'Hulu') {
-        services.push('hulu:free');
-        services.push('hulu:plus');
+        streaming.push('hulu:free');
+        streaming.push('hulu:plus');
       } else if (service === 'Personal') {
         personal = true;
       } else {
-        services.push(service.toLowerCase());
+        streaming.push(`${service.toLowerCase()}:`);
       }
     });
     const parameters = {
       genres,
-      services,
+      streaming,
       personal,
-      tomatometer: collapse ? tomatometer : null
+      tomatometer: collapse ? tomatometer : null,
+      mpaaRating,
+      years
     };
     this.props.fetchSearchedMovies(parameters);
   };
@@ -49,7 +52,7 @@ class SearchCriteria extends Component {
             <Buttons btnSize="btn-54px" glyph="save" />
             <Chevron />
           </ButtonToolbar>
-          <Collapse isOpen={this.props.collapse} className="col-sm-12">
+          <Collapse isOpen={this.props.collapse} className="w-100">
             <AdditionalSearchCriteria />
           </Collapse>
         </div>
@@ -62,23 +65,29 @@ const mapStateToProps = state => ({
   genres: state.genres,
   services: state.streamingServices,
   collapse: state.collapse,
-  tomatometer: state.tomatometer
+  tomatometer: state.tomatometer,
+  mpaaRating: state.mpaaRating,
+  years: state.year
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ fetchSearchedMovies }, dispatch);
 
 SearchCriteria.propTypes = {
   fetchSearchedMovies: PropTypes.func.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string),
+  genres: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })),
   services: PropTypes.arrayOf(PropTypes.string),
   collapse: PropTypes.bool.isRequired,
-  tomatometer: PropTypes.number
+  tomatometer: PropTypes.number,
+  mpaaRating: PropTypes.arrayOf(PropTypes.string),
+  years: PropTypes.objectOf(PropTypes.number)
 };
 
 SearchCriteria.defaultProps = {
   genres: [],
   services: [],
-  tomatometer: null
+  tomatometer: null,
+  mpaaRating: null,
+  years: {}
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCriteria);

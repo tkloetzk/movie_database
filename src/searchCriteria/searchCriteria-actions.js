@@ -30,7 +30,7 @@ export function fetchSearchedMoviesFetchDataSuccess(movies) {
 export function fetchSearchedMovies(parameters) {
   return dispatch => {
     dispatch(fetchSearchedMoviessIsLoading(true));
-    const { genres, services, personal, tomatometer } = parameters;
+    const { genres, streaming, personal, tomatometer, mpaaRating, years } = parameters;
     const genresArray = map(genres, genre => genre.value);
     const encodedGenres =
       genresArray.length > 0
@@ -38,15 +38,30 @@ export function fetchSearchedMovies(parameters) {
             JSON.stringify(genresArray)
           )}}},`
         : '';
-    const encodedServices = encodeURIComponent(JSON.stringify(services));
+    const encodedServices = encodeURIComponent(JSON.stringify(streaming));
 
     const tomatometerUrl =
       tomatometer !== null ? `{"name":"critics_score","op":"ge","val":${tomatometer}},` : '';
 
+    const mpaaRatingUrl =
+      mpaaRating !== null
+        ? `{"name":"mpaa_rating","op":"in","val":${encodeURIComponent(
+            JSON.stringify(mpaaRating)
+          )}},`
+        : '';
+
+    const yearsUrl =
+      years !== null
+        ? `{"name":"year","op":"ge","val":${years.min}},{"name":"year","op":"le","val":${
+            years.max
+          }},`
+        : '';
+
     if (personal) {
       console.log('get personal movies from DB. Combine into promise');
     }
-    const url = `http://www.flixfindr.com/api/movie?page=1&q={"filters":[${tomatometerUrl}${encodedGenres}{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":${encodedServices}}}],"order_by":[{"field":"critics_score","direction":"desc"}]}`;
+    const url = `http://www.flixfindr.com/api/movie?page=1&q={"filters":[${tomatometerUrl}${encodedGenres}${mpaaRatingUrl}${yearsUrl}{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":${encodedServices}}}],"order_by":[{"field":"critics_score","direction":"desc"}]}`;
+
     axios
       .get(url)
       .then(movies => {
