@@ -31,7 +31,6 @@ export function fetchSearchedMovies(parameters) {
   return dispatch => {
     dispatch(fetchSearchedMoviessIsLoading(true));
     const { genres, streaming, personal, tomatometer, mpaaRating, years } = parameters;
-    console.log(years);
     const genresArray = map(genres, genre => genre.value);
     const encodedGenres =
       genresArray.length > 0

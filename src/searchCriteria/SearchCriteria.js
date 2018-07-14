@@ -73,12 +73,12 @@ const mapDispatchToProps = dispatch => bindActionCreators({ fetchSearchedMovies 
 
 SearchCriteria.propTypes = {
   fetchSearchedMovies: PropTypes.func.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string),
+  genres: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })),
   services: PropTypes.arrayOf(PropTypes.string),
   collapse: PropTypes.bool.isRequired,
   tomatometer: PropTypes.number,
   mpaaRating: PropTypes.arrayOf(PropTypes.string),
-  years: PropTypes.string
+  years: PropTypes.objectOf(PropTypes.number)
 };
 
 SearchCriteria.defaultProps = {

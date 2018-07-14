@@ -36,7 +36,7 @@ Year.defaultProps = {
 };
 Year.propTypes = {
   updateYear: PropTypes.func.isRequired,
-  years: PropTypes.string
+  years: PropTypes.objectOf(PropTypes.number)
 };
 
 const mapStateToProps = state => ({
