@@ -52,6 +52,6 @@ Genres.defaultProps = {
 };
 Genres.propTypes = {
   updateGenreAction: PropTypes.func.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.object)
+  genres: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.string, value: PropTypes.string }))
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Genres);

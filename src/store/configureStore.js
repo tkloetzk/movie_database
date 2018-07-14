@@ -11,6 +11,7 @@ import {
 import collapse from '../util/chevron-reducer';
 import tomatometer from '../additionalSearchCriteria/tomatometer/tomatometer-reducer';
 import mpaaRating from '../additionalSearchCriteria/mpaa/mpaa-reducer';
+import year from '../additionalSearchCriteria/year/year-reducer';
 
 const rootReducer = combineReducers({
   genres,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   collapse,
   tomatometer,
   mpaaRating,
+  year,
   fetchSearchedMoviesHasErrored,
   fetchSearchedMoviesIsLoading,
   movies

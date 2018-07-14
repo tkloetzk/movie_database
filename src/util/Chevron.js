@@ -10,7 +10,6 @@ class Chevron extends Component {
   };
 
   toggle = () => {
-    console.log(this.props.collapse);
     this.props.updateChevron(!this.props.collapse);
   };
   render() {

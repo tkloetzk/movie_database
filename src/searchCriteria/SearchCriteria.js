@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { forEach } from 'lodash';
 import { Collapse } from 'mdbreact';
 import PropTypes from 'prop-types';
-import 'react-rangeslider/lib/index.css';
 import { fetchSearchedMovies } from './searchCriteria-actions';
 import './SearchCriteria.css';
 import Genres from './genres/Genres';
@@ -16,7 +15,7 @@ import AdditionalSearchCriteria from './../additionalSearchCriteria/AdditionalSe
 
 class SearchCriteria extends Component {
   getSearchedMovies = () => {
-    const { genres, tomatometer, collapse, services, mpaaRating } = this.props;
+    const { genres, tomatometer, collapse, services, mpaaRating, years } = this.props;
     let personal = false;
     const streaming = [];
     forEach(services, service => {
@@ -34,7 +33,8 @@ class SearchCriteria extends Component {
       streaming,
       personal,
       tomatometer: collapse ? tomatometer : null,
-      mpaaRating
+      mpaaRating,
+      years
     };
     this.props.fetchSearchedMovies(parameters);
   };
@@ -65,25 +65,28 @@ const mapStateToProps = state => ({
   services: state.streamingServices,
   collapse: state.collapse,
   tomatometer: state.tomatometer,
-  mpaaRating: state.mpaaRating
+  mpaaRating: state.mpaaRating,
+  years: state.year
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ fetchSearchedMovies }, dispatch);
 
 SearchCriteria.propTypes = {
   fetchSearchedMovies: PropTypes.func.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string),
+  genres: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })),
   services: PropTypes.arrayOf(PropTypes.string),
   collapse: PropTypes.bool.isRequired,
   tomatometer: PropTypes.number,
-  mpaaRating: PropTypes.arrayOf(PropTypes.string)
+  mpaaRating: PropTypes.arrayOf(PropTypes.string),
+  years: PropTypes.objectOf(PropTypes.number)
 };
 
 SearchCriteria.defaultProps = {
   genres: [],
   services: [],
   tomatometer: null,
-  mpaaRating: null
+  mpaaRating: null,
+  years: {}
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCriteria);

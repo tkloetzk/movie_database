@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Slider from 'react-rangeslider';
+import InputRange from 'react-input-range';
 import PropTypes from 'prop-types';
+import 'react-input-range/lib/css/index.css';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as tomatometerAction from './tomatometer-actions';
@@ -10,22 +11,15 @@ class Tomatometer extends Component {
     this.props.updateTomatometer(value);
   };
   render() {
-    const horizontalLabels = {
-      0: 'Rotten',
-      60: 'Fresh'
-    };
-    const formatPercent = value => `${value} %`;
     return (
       <div className="col-sm-3">
         Tomatometer
-        <div className="slider custom-labels">
-          <Slider
-            min={0}
-            max={100}
+        <div className="slider custom-labels pt-3">
+          <InputRange
+            maxValue={100}
+            minValue={0}
+            formatLabel={value => `${value}%`}
             value={this.props.tomatometer}
-            labels={horizontalLabels}
-            format={formatPercent}
-            handleLabel={`${this.props.tomatometer}`}
             onChange={this.handleChangeHorizontal}
           />
         </div>
