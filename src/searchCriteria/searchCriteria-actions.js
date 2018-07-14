@@ -61,6 +61,7 @@ export function fetchSearchedMovies(parameters) {
       console.log('get personal movies from DB. Combine into promise');
     }
     const url = `http://www.flixfindr.com/api/movie?page=1&q={"filters":[${tomatometerUrl}${encodedGenres}${mpaaRatingUrl}${yearsUrl}{"name":"availabilities","op":"any","val":{"name":"filter_property","op":"in","val":${encodedServices}}}],"order_by":[{"field":"critics_score","direction":"desc"}]}`;
+
     axios
       .get(url)
       .then(movies => {
