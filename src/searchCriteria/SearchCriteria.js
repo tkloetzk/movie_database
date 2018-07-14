@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { forEach } from 'lodash';
 import { Collapse } from 'mdbreact';
 import PropTypes from 'prop-types';
-import 'react-rangeslider/lib/index.css';
 import { fetchSearchedMovies } from './searchCriteria-actions';
 import './SearchCriteria.css';
 import Genres from './genres/Genres';
