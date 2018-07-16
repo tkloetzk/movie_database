@@ -1,15 +1,32 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import MovieItem from './MovieItem/MovieItem';
+
+const styles = () => ({
+  root: {
+    width: '100%',
+    backgroundColor: 'white',
+    display: 'flex'
+  }
+});
 
 const Results = props => {
-  const resultsList = (
-    <ul>{props.movies.map(movie => <li key={movie.title}>{movie.title}</li>)}</ul>
-  );
+  const { classes, movies } = props;
   return (
-    <Grid item xs>
-      {resultsList}
+    <Grid item lg>
+      <List component="nav">
+        {movies.map(movie => (
+          <div key={movie.title} className={`row rounded ${classes.root}`}>
+            <MovieItem movie={movie} />
+            <Divider />
+          </div>
+        ))}
+      </List>
     </Grid>
   );
 };
@@ -19,11 +36,12 @@ const mapStateToProps = state => ({
 });
 
 Results.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.object)
+  movies: PropTypes.arrayOf(PropTypes.shape),
+  classes: PropTypes.shape.isRequired
 };
 
 Results.defaultProps = {
   movies: []
 };
 
-export default connect(mapStateToProps)(Results);
+export default connect(mapStateToProps)(withStyles(styles)(Results));

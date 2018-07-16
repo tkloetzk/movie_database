@@ -12,7 +12,6 @@ const App = () => (
       <SearchCriteria />
       <Grid container>
         <Results />
-        <Grid item xs />
       </Grid>
     </section>
   </div>
